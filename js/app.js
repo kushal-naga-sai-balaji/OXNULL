@@ -5,33 +5,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
   // 1. Enter Orbit Hero CTA
-
-  // 4. Enter Orbit Hero CTA
   const enterOrbitBtn = document.getElementById('btn-enter-orbit');
   if (enterOrbitBtn) {
     enterOrbitBtn.addEventListener('click', (e) => {
       e.preventDefault();
-      const rect = enterOrbitBtn.getBoundingClientRect();
-      if (window.zeroGPhysics) {
-        window.zeroGPhysics.triggerShockwave(rect.left + rect.width / 2, rect.top + rect.height / 2, 2.0);
-      }
-      setTimeout(() => {
-        const tracksSection = document.getElementById('tracks');
-        if (tracksSection) {
-          tracksSection.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 250);
-    });
-  }
-
-  // 5. Hero Manual Pulse CTA
-  const pulseBtn = document.getElementById('btn-grav-shockwave');
-  if (pulseBtn) {
-    pulseBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const rect = pulseBtn.getBoundingClientRect();
-      if (window.zeroGPhysics) {
-        window.zeroGPhysics.triggerShockwave(rect.left + rect.width / 2, rect.top + rect.height / 2, 1.8);
+      const tracksSection = document.getElementById('tracks');
+      if (tracksSection) {
+        tracksSection.scrollIntoView({ behavior: 'smooth' });
       }
     });
   }

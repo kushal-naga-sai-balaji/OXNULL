@@ -50,16 +50,17 @@ class ZeroGPhysicsEngine {
     const count = window.innerWidth < 768 ? 40 : this.config.particleCount;
     const glyphs = ['0', '1', 'x', '+', 'λ', '0xNULL', '∅', '⌘', '::'];
 
+    // Keep particle float calm and stable
     for (let i = 0; i < count; i++) {
       this.particles.push({
         x: Math.random() * this.width,
         y: Math.random() * this.height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        radius: Math.random() * 2.2 + 0.8,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: Math.random() * 2.0 + 0.8,
         glyph: Math.random() > 0.65 ? glyphs[Math.floor(Math.random() * glyphs.length)] : null,
         baseColor: Math.random() > 0.35 ? '#00f0ff' : (Math.random() > 0.5 ? '#00ff66' : '#ffffff'),
-        alpha: Math.random() * 0.6 + 0.2,
+        alpha: Math.random() * 0.5 + 0.2,
         phase: Math.random() * Math.PI * 2,
         mass: Math.random() * 1.5 + 0.8
       });
@@ -67,25 +68,13 @@ class ZeroGPhysicsEngine {
   }
 
   cacheDOMDebris() {
-    // Select floating UI cards and debris to participate in DOM physics
-    const elements = document.querySelectorAll(
-      '.track-card, .event-node-card, .floating-code-debris, .arsenal-card, .hero-directive-badge'
-    );
-    this.debrisElements = Array.from(elements).map(el => ({
-      element: el,
-      xOffset: 0,
-      yOffset: 0,
-      vx: 0,
-      vy: 0,
-      rot: 0,
-      vRot: 0
-    }));
+    // Stable DOM: elements remain in their layout positions
+    this.debrisElements = [];
   }
 
   bindEvents() {
     window.addEventListener('resize', () => {
       this.resizeCanvas();
-      this.cacheDOMDebris();
     });
 
     window.addEventListener('mousemove', (e) => {
@@ -100,136 +89,21 @@ class ZeroGPhysicsEngine {
       this.mouse.y = -1000;
     });
 
-    // Global Click Physics: Emits gravitational pulse/shockwave
-    window.addEventListener('click', (e) => {
-      // Don't trigger if clicking interactive inputs or buttons directly to avoid jarring forms
-      const isInput = e.target.closest('input, textarea, select');
-      if (isInput) return;
-
-      this.triggerShockwave(e.clientX, e.clientY, 1.0);
-    });
-
-    // Touch device support
-    window.addEventListener('touchstart', (e) => {
-      if (e.touches.length > 0) {
-        const touch = e.touches[0];
-        this.mouse.x = touch.clientX;
-        this.mouse.y = touch.clientY;
-        this.triggerShockwave(touch.clientX, touch.clientY, 0.85);
-      }
-    }, { passive: true });
+    // Note: Click and touch shockwave scattering effects have been removed to keep gravity stable
   }
 
   triggerShockwave(x, y, power = 1.0) {
-    if (!this.config.physicsEnabled) return;
-
-    // 1. Add Canvas Shockwave
-    this.shockwaves.push({
-      x,
-      y,
-      radius: 5,
-      maxRadius: Math.max(this.width, this.height) * 0.6,
-      speed: 16 * power,
-      alpha: 0.85,
-      color: '#00f0ff'
-    });
-
-    // 2. Spawn Visual DOM Shockwave Ring
-    this.spawnDOMRing(x, y);
-
-    // 3. Audio Shockwave Trigger
-    if (window.cyberAudio) {
-      window.cyberAudio.playShockwave();
-    }
-
-    // 4. Scatter Nearby Particles
-    this.particles.forEach(p => {
-      const dx = p.x - x;
-      const dy = p.y - y;
-      const dist = Math.hypot(dx, dy) || 1;
-      if (dist < 450) {
-        const force = (1 - dist / 450) * 18 * power * (1 / p.mass);
-        p.vx += (dx / dist) * force;
-        p.vy += (dy / dist) * force;
-      }
-    });
-
-    // 5. Physics Repulsion for Nearby Floating DOM Cards
-    this.debrisElements.forEach(item => {
-      const rect = item.element.getBoundingClientRect();
-      const elemCenterX = rect.left + rect.width / 2;
-      const elemCenterY = rect.top + rect.height / 2;
-      
-      const dx = elemCenterX - x;
-      const dy = elemCenterY - y;
-      const dist = Math.hypot(dx, dy) || 1;
-
-      if (dist < 600) {
-        const strength = (1 - dist / 600) * 24 * power;
-        item.vx += (dx / dist) * strength;
-        item.vy += (dy / dist) * strength;
-        item.vRot += ((Math.random() - 0.5) * strength * 0.4);
-      }
-    });
+    // No-op: Click scattering effect removed per user directive
   }
 
   spawnDOMRing(x, y) {
-    const ring = document.createElement('div');
-    ring.className = 'shockwave-effect-ring';
-    ring.style.left = `${x}px`;
-    ring.style.top = `${y}px`;
-    ring.style.width = '60px';
-    ring.style.height = '60px';
-    document.body.appendChild(ring);
-
-    requestAnimationFrame(() => {
-      ring.style.transform = 'translate(-50%, -50%) scale(10)';
-      ring.style.opacity = '0';
-    });
-
-    setTimeout(() => {
-      ring.remove();
-    }, 850);
+    // No-op
   }
 
   updateDOMDebris() {
-    if (!this.config.physicsEnabled) return;
-
-    this.debrisElements.forEach(item => {
-      // Spring force returning to equilibrium (0, 0)
-      const ax = -this.config.springConstant * item.xOffset;
-      const ay = -this.config.springConstant * item.yOffset;
-      const aRot = -this.config.springConstant * item.rot;
-
-      item.vx = (item.vx + ax) * this.config.damping;
-      item.vy = (item.vy + ay) * this.config.damping;
-      item.vRot = (item.vRot + aRot) * this.config.damping;
-
-      item.xOffset += item.vx;
-      item.yOffset += item.vy;
-      item.rot += item.vRot;
-
-      // When velocities are very small, clamp to zero
-      if (Math.abs(item.xOffset) < 0.1 && Math.abs(item.vx) < 0.05) {
-        item.xOffset = 0;
-        item.vx = 0;
-      }
-      if (Math.abs(item.yOffset) < 0.1 && Math.abs(item.vy) < 0.05) {
-        item.yOffset = 0;
-        item.vy = 0;
-      }
-      if (Math.abs(item.rot) < 0.1 && Math.abs(item.vRot) < 0.05) {
-        item.rot = 0;
-        item.vRot = 0;
-      }
-
-      if (item.xOffset !== 0 || item.yOffset !== 0 || item.rot !== 0) {
-        item.element.style.transform = `translate3d(${item.xOffset.toFixed(2)}px, ${item.yOffset.toFixed(2)}px, 0) rotate(${item.rot.toFixed(2)}deg)`;
-      } else {
-        item.element.style.transform = '';
-      }
-    });
+    // Stable layout: DOM elements remain anchored in place
   }
+
 
   invertGravity() {
     this.config.gravityInverted = !this.config.gravityInverted;

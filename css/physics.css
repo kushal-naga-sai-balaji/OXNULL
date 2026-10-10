@@ -66,69 +66,39 @@
 }
 
 @keyframes zero-g-float-1 {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(-3px, -14px, 0) rotate(0.8deg);
-  }
-  100% {
-    transform: translate3d(4px, -24px, 0) rotate(-0.6deg);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes zero-g-float-2 {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(5px, -18px, 0) rotate(-1deg);
-  }
-  100% {
-    transform: translate3d(-4px, -28px, 0) rotate(1.2deg);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -7px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes zero-g-float-3 {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(-6px, -10px, 0) rotate(1.4deg);
-  }
-  100% {
-    transform: translate3d(3px, -20px, 0) rotate(-0.9deg);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -5px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes zero-g-float-4 {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(6px, -16px, 0) rotate(-0.7deg);
-  }
-  100% {
-    transform: translate3d(-5px, -22px, 0) rotate(0.8deg);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -6px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes zero-g-float-slow {
-  0% {
-    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-  }
-  50% {
-    transform: translate3d(0, -16px, 0) rotate(1deg) scale(1.02);
-  }
-  100% {
-    transform: translate3d(0, -30px, 0) rotate(-1deg) scale(1);
-  }
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -8px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
-/* Hover Boost: In zero-G, hovering gently lifts an item with higher buoyancy */
+/* Hover Boost: subtle stable lift */
 .track-card:hover,
 .event-node-card:hover {
-  transform: translate3d(0, -10px, 0) scale(1.02) !important;
+  transform: translate3d(0, -6px, 0) !important;
 }
 
 /* Inverted Gravity State */
