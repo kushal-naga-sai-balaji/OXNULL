@@ -4,46 +4,7 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Audio Toggle Button
-  const audioToggleBtn = document.getElementById('btn-toggle-audio');
-  if (audioToggleBtn) {
-    audioToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (window.cyberAudio) {
-        const isMuted = window.cyberAudio.toggleMute();
-        audioToggleBtn.classList.toggle('active', !isMuted);
-        audioToggleBtn.querySelector('.hud-btn-text').textContent = isMuted ? 'AUDIO: MUTED' : 'AUDIO: ON';
-      }
-    });
-  }
-
-  // 2. Zero-G Physics Toggle
-  const physicsToggleBtn = document.getElementById('btn-toggle-physics');
-  if (physicsToggleBtn) {
-    physicsToggleBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (window.zeroGPhysics) {
-        window.zeroGPhysics.togglePhysics();
-        const isEnabled = window.zeroGPhysics.config.physicsEnabled;
-        physicsToggleBtn.classList.toggle('active', isEnabled);
-        physicsToggleBtn.querySelector('.hud-btn-text').textContent = isEnabled ? 'ZERO-G: ACTIVE' : 'ZERO-G: STABILIZED';
-      }
-    });
-  }
-
-  // 3. Invert Gravity Button
-  const invertGravityBtn = document.getElementById('btn-invert-gravity');
-  if (invertGravityBtn) {
-    invertGravityBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (window.zeroGPhysics) {
-        window.zeroGPhysics.invertGravity();
-        const isInverted = window.zeroGPhysics.config.gravityInverted;
-        invertGravityBtn.classList.toggle('active', isInverted);
-        invertGravityBtn.querySelector('.hud-btn-text').textContent = isInverted ? 'G: -9.8 m/s²' : 'G: 0.00 m/s²';
-      }
-    });
-  }
+  // 1. Enter Orbit Hero CTA
 
   // 4. Enter Orbit Hero CTA
   const enterOrbitBtn = document.getElementById('btn-enter-orbit');
