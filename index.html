@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OXNULL // Zero-Gravity Cybersecurity & Orbital Defense</title>
+  <meta name="description" content="OXNULL is an elite collegiate cybersecurity organization defying gravity to secure cyberspace through 7 core tracks: Awareness, Explore, Red/Blue Team, Forensics, Cryptography, Cloud Security, and Security Architecture.">
+  <meta name="theme-color" content="#08090c">
+
+  <!-- Google Fonts: Orbitron, Space Grotesk, JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Orbitron:wght@500;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/hud.css">
+  <link rel="stylesheet" href="css/physics.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Fullscreen Zero-G Canvas Physics Layer -->
+  <canvas id="canvas-zero-g"></canvas>
+
+  <!-- Ambient CRT Scanlines & Grid Overlay -->
+  <div class="scanlines-overlay"></div>
+  <div class="cyber-grid-floor"></div>
+
+  <!-- Top Tactical HUD Navigation Bar -->
+  <header class="navbar-hud">
+    <div class="container navbar-inner">
+      <a href="#hero" class="nav-brand" aria-label="OXNULL Home">
+        <div class="gyro-logo">
+          <div class="gyro-ring-outer"></div>
+          <div class="gyro-ring-inner"></div>
+          <img src="assets/oxnull_logo.jpg" alt="OXNULL Cybersecurity Club Logo" class="gyro-logo-img">
+        </div>
+        <div class="brand-title">
+          OX<span>NULL</span>
+          <span class="brand-badge">ZERO-G // DEFCON 1</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav aria-label="Main Navigation">
+        <ul class="nav-links">
+          <li><a href="#hero" class="nav-link active"><span class="nav-num">01//</span>ORBIT</a></li>
+          <li><a href="#tracks" class="nav-link"><span class="nav-num">02//</span>TRACKS</a></li>
+          <li><a href="#trajectory" class="nav-link"><span class="nav-num">03//</span>TRAJECTORY</a></li>
+          <li><a href="#arsenal" class="nav-link"><span class="nav-num">04//</span>ARSENAL</a></li>
+        </ul>
+      </nav>
+
+      <!-- HUD Control Widgets -->
+      <div class="nav-controls">
+        <button id="btn-toggle-audio" class="hud-pill-button active" title="Toggle Synthesized Audio SFX">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span class="hud-btn-text">AUDIO: ON</span>
+        </button>
+
+        <button id="btn-toggle-physics" class="hud-pill-button active" title="Toggle Zero-G Engine / Reduced Motion">
+          <span class="status-indicator"></span>
+          <span class="hud-btn-text">ZERO-G: ACTIVE</span>
+        </button>
+
+        <button id="btn-invert-gravity" class="hud-pill-button" title="Invert Gravitational Vector">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="7 13 12 18 17 13"/><polyline points="7 6 12 11 17 6"/></svg>
+          <span class="hud-btn-text">G: 0.00 m/s²</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SECTION 1: HERO & LIVE TELEMETRY HUD (ORBIT)
+       ========================================================================== -->
+  <section id="hero" class="hero-section">
+    <div class="container hero-grid">
+      
+      <!-- Left Hero Content -->
+      <div class="hero-content">
+        <div class="hero-directive-badge entry-drift-up delay-1">
+          <span class="signal-blink"></span>
+          <span>ORBITAL THREAT INTELLIGENCE // SECTOR 0x00</span>
+        </div>
+
+        <h1 class="hero-title entry-drift-up delay-2">
+          <span class="title-oxnull">OXNULL</span><br>
+          DEFYING GRAVITY,<br>
+          <span class="cyan-glow-text">SECURING CYBERSPACE.</span>
+        </h1>
+
+        <div class="hero-tagline entry-drift-up delay-3">
+          ZERO RESISTANCE • ZERO LATENCY • ZERO TRUST
+        </div>
+
+        <p class="hero-description entry-drift-up delay-4">
+          Where zero-gravity physics collides with high-stakes cyber warfare.
+          OXNULL trains elite security operatives to break free of terrestrial limitations,
+          reverse-engineer complex exploits, and fortify decentralized digital architectures.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group entry-drift-up delay-5">
+          <button id="btn-enter-orbit" class="btn-cyber-primary" aria-label="Enter Orbit and Explore Tracks">
+            ENTER ORBIT <span style="font-size: 1.1rem;">⤋</span>
+          </button>
+          <button id="btn-grav-shockwave" class="btn-cyber-outline" title="Discharge Gravitational Shockwave Pulse">
+            DISCHARGE PULSE [CLICK]
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Visual: Zero-G Orbital Gyroscope & Emblem -->
+      <div class="hero-visual-wrapper entry-drift-up delay-3">
+        <div class="orbital-hologram-cage levitate-loop-slow">
+          <!-- Concentric Gyro Rings -->
+          <div class="orbital-ring ring-1"></div>
+          <div class="orbital-ring ring-2"></div>
+          <div class="orbital-ring ring-3"></div>
+
+          <!-- Gyro HUD Markers -->
+          <div class="orbital-hud-marker marker-top">ALT: 420.69 KM</div>
+          <div class="orbital-hud-marker marker-bottom">ORBIT: POLAR_0</div>
+          <div class="orbital-hud-marker marker-left">G = 0.00</div>
+          <div class="orbital-hud-marker marker-right">DEFCON: 1</div>
+
+          <!-- Core Emblem Image -->
+          <div class="hologram-emblem-core">
+            <img src="assets/oxnull_logo.jpg" alt="OXNULL Cybersecurity Club Logo" loading="eager">
+          </div>
+
+          <!-- Floating Weightless Debris Code Fragments -->
+          <div class="floating-code-debris levitate-loop-2" style="top: 10%; right: -15%;">
+            xor eax, eax ; zero-g
+          </div>
+          <div class="floating-code-debris levitate-loop-3" style="bottom: 12%; left: -20%;">
+            FLAG{z3r0_gr4v1ty_0xnu11}
+          </div>
+          <div class="floating-code-debris levitate-loop-4" style="top: 80%; right: -10%;">
+            ROP_CHAIN: ARMED
+          </div>
+          <div class="floating-code-debris levitate-loop-1" style="top: -5%; left: 10%;">
+            0x7FFF5FBFF8AC
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 2: 7 CORE TRACKS & DOMAINS
+       ========================================================================== -->
+  <section id="tracks">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="dot"></span>
+          ORBITAL DISCIPLINES
+        </div>
+        <h2 class="section-title">
+          07 TACTICAL <span class="title-accent">DOMAINS</span>
+        </h2>
+        <p class="section-subtitle">
+          From cognitive baseline hygiene to post-quantum cryptography and cloud container runtime defense.
+          Click any floating orbital node to inspect curriculum, tools, and interactive labs.
+        </p>
+      </div>
+
+      <!-- Tracks Grid (7 Levitating Zero-G Cards) -->
+      <div class="tracks-grid">
+
+        <!-- Track 1: Awareness -->
+        <article class="track-card levitate-loop-1" data-track-id="1">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-01</span>
+              <span class="track-classification classification-unrestricted">UNRESTRICTED</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+            </div>
+            <h3 class="track-title">Awareness</h3>
+            <p class="track-desc">
+              Baseline cyber hygiene, social engineering vectors, phishing simulations, and community resilience against human-targeted deception.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">Social Engineering</span>
+              <span class="track-tag-pill">Anti-Phishing</span>
+              <span class="track-tag-pill">FIDO2 / MFA</span>
+              <span class="track-tag-pill">Security Culture</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">12 MODULES • 4 SIMS</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 1 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Track 2: Explore -->
+        <article class="track-card levitate-loop-2" data-track-id="2">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-02</span>
+              <span class="track-classification classification-unrestricted">UNRESTRICTED</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            </div>
+            <h3 class="track-title">Explore</h3>
+            <p class="track-desc">
+              Foundational labs, beginner CTF sandboxes, Linux command-line mastery, network sniffing, and cybersecurity tooling discovery.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">Linux Internals</span>
+              <span class="track-tag-pill">Beginner CTF</span>
+              <span class="track-tag-pill">Wireshark</span>
+              <span class="track-tag-pill">Bash Automation</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">20 SANDBOX LABS</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 2 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Track 3: Blue Team & Red Team -->
+        <article class="track-card levitate-loop-3" data-track-id="3">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-03</span>
+              <span class="track-classification classification-top-secret">TOP SECRET</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/><path d="m10 13-2 2 2 2"/><path d="m14 17 2-2-2-2"/></svg>
+            </div>
+            <h3 class="track-title">Blue Team & Red Team</h3>
+            <p class="track-desc">
+              Adversary emulation vs. active defense. Splunk SIEM telemetry, live threat hunting, MITRE ATT&CK tactics, and simulated breach war games.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">Adversary Emulation</span>
+              <span class="track-tag-pill">SIEM & EDR</span>
+              <span class="track-tag-pill">Threat Hunting</span>
+              <span class="track-tag-pill">C2 Frameworks</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">LIVE WAR ROOM</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 3 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Track 4: Digital Forensics -->
+        <article class="track-card levitate-loop-4" data-track-id="4">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-04</span>
+              <span class="track-classification classification-confidential">CONFIDENTIAL</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+            </div>
+            <h3 class="track-title">Digital Forensics</h3>
+            <p class="track-desc">
+              Volatile memory dump analysis with Volatility 3, raw disk imaging, artifact carving, chronological breach timelines, and steganography.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">RAM Carving</span>
+              <span class="track-tag-pill">Volatility 3</span>
+              <span class="track-tag-pill">Autopsy</span>
+              <span class="track-tag-pill">Timeline Analysis</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">16 INCIDENT CASES</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 4 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Track 5: Cryptography -->
+        <article class="track-card levitate-loop-1" data-track-id="5">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-05</span>
+              <span class="track-classification classification-top-secret">TOP SECRET</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3 class="track-title">Cryptography</h3>
+            <p class="track-desc">
+              Mathematical ciphers, public-key attacks (RSA/ECC), hash collisions, discrete logarithms, and quantum-resistant post-quantum cryptography.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">RSA / ECC Attacks</span>
+              <span class="track-tag-pill">Lattice Cryptography</span>
+              <span class="track-tag-pill">SageMath</span>
+              <span class="track-tag-pill">Post-Quantum</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">MATHEMATICAL DEFENSE</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 5 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Track 6: Cloud Security -->
+        <article class="track-card levitate-loop-2" data-track-id="6">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-06</span>
+              <span class="track-classification classification-confidential">CONFIDENTIAL</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+            </div>
+            <h3 class="track-title">Cloud Security</h3>
+            <p class="track-desc">
+              AWS, GCP, Azure infrastructure hardening. IAM privilege escalation paths, Kubernetes container breakout prevention, and runtime eBPF defense.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">AWS / Azure / GCP</span>
+              <span class="track-tag-pill">K8s Runtime</span>
+              <span class="track-tag-pill">IAM BloodHound</span>
+              <span class="track-tag-pill">Terraform IaC</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">CLOUD RANGE</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 6 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Track 7: Security Architecture -->
+        <article class="track-card levitate-loop-3" data-track-id="7">
+          <div>
+            <div class="track-card-header">
+              <span class="track-id-badge">TRK-07</span>
+              <span class="track-classification classification-top-secret">TOP SECRET</span>
+            </div>
+            <div class="track-icon-wrapper">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+            </div>
+            <h3 class="track-title">Security Architecture</h3>
+            <p class="track-desc">
+              NIST Zero Trust architecture, STRIDE threat modeling, network micro-segmentation, and anti-fragile system design that withstands catastrophic failure.
+            </p>
+            <div class="track-tags">
+              <span class="track-tag-pill">Zero Trust (ZTA)</span>
+              <span class="track-tag-pill">STRIDE Framework</span>
+              <span class="track-tag-pill">Micro-segmentation</span>
+              <span class="track-tag-pill">Resilient Mesh</span>
+            </div>
+          </div>
+          <div class="track-footer">
+            <span class="track-stats">CITADEL DESIGN</span>
+            <button class="track-inspect-btn" aria-label="Inspect Track 7 Details">
+              INSPECT HUD <span>❯</span>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       HUD DETAIL MODAL / DRAWER
+       ========================================================================== -->
+  <div id="hud-detail-modal" class="hud-modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="hud-drawer hud-corner-brackets">
+      <button id="btn-close-drawer" class="drawer-close-btn" aria-label="Close Track Briefing">✕</button>
+      <div id="drawer-dynamic-content">
+        <!-- Dynamically injected via js/orbital.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       SECTION 3: EVENTS & ORBITAL TRAJECTORY
+       ========================================================================== -->
+  <section id="trajectory">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="dot"></span>
+          MISSION SCHEDULE
+        </div>
+        <h2 class="section-title">
+          ORBITAL <span class="title-accent">TRAJECTORY</span>
+        </h2>
+        <p class="section-subtitle">
+          Key missions, collegiate CTFs, live breach simulations, and expert threat intelligence briefings charted along a zero-friction gravitational arc.
+        </p>
+      </div>
+
+      <!-- Coming Soon Orbital Trajectory Panel -->
+      <div class="trajectory-coming-soon-panel hud-corner-brackets levitate-loop-slow">
+        <div class="coming-soon-beacon">
+          <div class="beacon-pulse-ring"></div>
+          <div class="beacon-pulse-inner"></div>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: var(--neon-cyan);"><circle cx="12" cy="12" r="10"/><polygon points="12 8 8 12 12 16 12 8"/></svg>
+        </div>
+        
+        <div class="coming-soon-status-tag">
+          <span class="status-indicator"></span>
+          ORBITAL TRAJECTORY // TELEMETRY STANDBY
+        </div>
+
+        <h3 class="coming-soon-heading">
+          MISSIONS & WAR GAMES <span class="cyan-glow-text">COMING SOON</span>
+        </h3>
+
+        <p class="coming-soon-text">
+          Zero-gravity CTFs, live adversarial war room simulations, and threat intelligence briefings are currently undergoing orbital vector calibration. Mission parameters and briefing dossiers will unlock shortly.
+        </p>
+
+        <div class="coming-soon-telemetry-strip">
+          <span><strong style="color: var(--signal-green);">DEFCON:</strong> 1 (STANDBY)</span>
+          <span>•</span>
+          <span><strong style="color: #fff;">FREQUENCY:</strong> 1420.405 MHz</span>
+          <span>•</span>
+          <span><strong style="color: var(--signal-green);">G-CONSTANT:</strong> 0.00 m/s²</span>
+          <span>•</span>
+          <span><strong style="color: #fff;">ORBIT:</strong> POLAR SYNCHRONOUS</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       SECTION 4: ARSENAL & TOOLING
+       ========================================================================== -->
+  <section id="arsenal">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="dot"></span>
+          OPERATIONAL TOOLKIT
+        </div>
+        <h2 class="section-title">
+          THE <span class="title-accent">ARSENAL</span>
+        </h2>
+        <p class="section-subtitle">
+          Industry-standard weapons and defense apparatus mastered within the OXNULL orbital curriculum.
+        </p>
+      </div>
+
+      <div class="arsenal-grid">
+        <div class="arsenal-card levitate-loop-1">
+          <div class="arsenal-name">Ghidra & IDA</div>
+          <div class="arsenal-category">REVERSE ENGINEERING</div>
+          <p class="arsenal-desc">NSA-grade decompiler for analyzing compiled binaries and ELF/PE malware.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-2">
+          <div class="arsenal-name">Wireshark & Scapy</div>
+          <div class="arsenal-category">PACKET ANALYSIS</div>
+          <p class="arsenal-desc">Deep packet inspection, raw packet forgery, and TLS stream reconstruction.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-3">
+          <div class="arsenal-name">Burp Suite Pro</div>
+          <div class="arsenal-category">WEB SECURITY</div>
+          <p class="arsenal-desc">Interception proxy, repeater, intruder, and vulnerability automation.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-4">
+          <div class="arsenal-name">Volatility 3</div>
+          <div class="arsenal-category">MEMORY FORENSICS</div>
+          <p class="arsenal-desc">Advanced volatile memory extraction for forensic artifact analysis.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-1">
+          <div class="arsenal-name">Splunk & Elastic</div>
+          <div class="arsenal-category">SIEM & HUNTING</div>
+          <p class="arsenal-desc">Enterprise log telemetry, Sigma rule detection, and anomaly hunting.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-2">
+          <div class="arsenal-name">Falco & eBPF</div>
+          <div class="arsenal-category">CLOUD & RUNTIME</div>
+          <p class="arsenal-desc">Kernel-level container runtime security and privilege escalation alerts.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-3">
+          <div class="arsenal-name">SageMath & Hashcat</div>
+          <div class="arsenal-category">CRYPTOGRAPHY</div>
+          <p class="arsenal-desc">Lattice calculations, discrete logarithms, and GPU hash cracking.</p>
+        </div>
+        <div class="arsenal-card levitate-loop-4">
+          <div class="arsenal-name">BloodHound & Sliver</div>
+          <div class="arsenal-category">RED TEAM & C2</div>
+          <p class="arsenal-desc">Active Directory graph analysis and resilient implant command-and-control.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================================
+       CYBER HUD FOOTER
+       ========================================================================== -->
+  <footer class="footer-hud">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <!-- Brand Summary -->
+        <div class="footer-brand-col">
+          <div style="display: flex; align-items: center; gap: 0.85rem; margin-bottom: 0.8rem;">
+            <img src="assets/oxnull_logo.jpg" alt="OXNULL MRCET Cybersecurity Club Logo" style="width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--neon-cyan); box-shadow: 0 0 12px var(--neon-cyan-glow); object-fit: cover;">
+            <div class="brand-title">
+              OX<span>NULL</span>
+              <span class="brand-badge">EST. 2026</span>
+            </div>
+          </div>
+          <p>
+            Malla Reddy College of Engineering & Technology Cybersecurity Club. An elite zero-gravity collective training the next generation of breach engineers, exploit researchers, and security architects.
+          </p>
+          <div style="margin-top: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--neon-cyan);">
+            LAT: 0.00° // LONG: 0.00° // G: 0.00 m/s²
+          </div>
+        </div>
+
+        <!-- 7 Tracks Links -->
+        <div>
+          <h4 class="footer-col-title">THE 7 DOMAINS</h4>
+          <ul class="footer-links-list">
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[1])">01. Awareness</a></li>
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[2])">02. Explore</a></li>
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[3])">03. Blue & Red Team</a></li>
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[4])">04. Digital Forensics</a></li>
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[5])">05. Cryptography</a></li>
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[6])">06. Cloud Security</a></li>
+            <li><a href="#tracks" onclick="window.orbitalTracks.openTrackDrawer(TRACK_DATA[7])">07. Security Architecture</a></li>
+          </ul>
+        </div>
+
+        <!-- Missions & Events -->
+        <div>
+          <h4 class="footer-col-title">ORBITAL EXPLORATION</h4>
+          <ul class="footer-links-list">
+            <li><a href="#tracks">07 Tactical Tracks</a></li>
+            <li><a href="#trajectory">Mission Trajectory</a></li>
+            <li><a href="#arsenal">Tooling Arsenal</a></li>
+            <li><a href="#hero">Orbital Station Core</a></li>
+          </ul>
+        </div>
+
+        <!-- Tactical Radar & Live Log Stream -->
+        <div>
+          <h4 class="footer-col-title">ORBITAL RADAR HUD</h4>
+          <div style="display: flex; justify-content: center; margin-bottom: 1rem;">
+            <canvas id="footer-radar-canvas" width="160" height="160"></canvas>
+          </div>
+          <div id="footer-log-stream" style="max-height: 85px; overflow: hidden;">
+            <!-- Real-time dynamic security logs -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div>
+          &copy; 2026 OXNULL CYBERSECURITY CLUB. ALL RIGHTS RESERVED. DEFCON 1 PROTOCOL ARMED.
+        </div>
+        <div style="display: flex; gap: 1.5rem;">
+          <a href="#hero" style="color: var(--neon-cyan); text-decoration: none;">TOP OF ORBIT ↑</a>
+          <a href="#tracks" style="color: var(--signal-green); text-decoration: none;">EXPLORE TRACKS ❯</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/physics.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/orbital.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

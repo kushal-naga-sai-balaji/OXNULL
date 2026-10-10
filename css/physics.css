@@ -1,0 +1,193 @@
+/* ==========================================================================
+   OXNULL ZERO-GRAVITY PHYSICS & LEVITATION SYSTEM
+   Organic multi-frequency drift, GPU acceleration, and shockwave physics
+   ========================================================================== */
+
+/* GPU Acceleration Base */
+.zero-g-element,
+.track-card,
+.telemetry-hud-panel,
+.event-node-card,
+.floating-code-debris,
+.orbital-hologram-cage {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  transition: transform 0.2s cubic-bezier(0.2, 0.8, 0.4, 1);
+}
+
+/* Staggered Zero-G Entry Levitation */
+.entry-drift-up {
+  opacity: 0;
+  transform: translate3d(0, 60px, 0);
+  animation: zero-g-entry 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes zero-g-entry {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 70px, 0) scale(0.97);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translate3d(0, -8px, 0) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* Stagger delays */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.25s; }
+.delay-3 { animation-delay: 0.4s; }
+.delay-4 { animation-delay: 0.55s; }
+.delay-5 { animation-delay: 0.7s; }
+
+/* Multi-Frequency Organic Levitation Loops */
+.levitate-loop-1 {
+  animation: zero-g-float-1 7.2s ease-in-out infinite alternate;
+}
+
+.levitate-loop-2 {
+  animation: zero-g-float-2 8.6s ease-in-out infinite alternate;
+}
+
+.levitate-loop-3 {
+  animation: zero-g-float-3 9.4s ease-in-out infinite alternate;
+}
+
+.levitate-loop-4 {
+  animation: zero-g-float-4 6.8s ease-in-out infinite alternate;
+}
+
+.levitate-loop-slow {
+  animation: zero-g-float-slow 12s ease-in-out infinite alternate;
+}
+
+@keyframes zero-g-float-1 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-3px, -14px, 0) rotate(0.8deg);
+  }
+  100% {
+    transform: translate3d(4px, -24px, 0) rotate(-0.6deg);
+  }
+}
+
+@keyframes zero-g-float-2 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(5px, -18px, 0) rotate(-1deg);
+  }
+  100% {
+    transform: translate3d(-4px, -28px, 0) rotate(1.2deg);
+  }
+}
+
+@keyframes zero-g-float-3 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-6px, -10px, 0) rotate(1.4deg);
+  }
+  100% {
+    transform: translate3d(3px, -20px, 0) rotate(-0.9deg);
+  }
+}
+
+@keyframes zero-g-float-4 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(6px, -16px, 0) rotate(-0.7deg);
+  }
+  100% {
+    transform: translate3d(-5px, -22px, 0) rotate(0.8deg);
+  }
+}
+
+@keyframes zero-g-float-slow {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -16px, 0) rotate(1deg) scale(1.02);
+  }
+  100% {
+    transform: translate3d(0, -30px, 0) rotate(-1deg) scale(1);
+  }
+}
+
+/* Hover Boost: In zero-G, hovering gently lifts an item with higher buoyancy */
+.track-card:hover,
+.event-node-card:hover {
+  transform: translate3d(0, -10px, 0) scale(1.02) !important;
+}
+
+/* Inverted Gravity State */
+body.gravity-inverted .levitate-loop-1,
+body.gravity-inverted .levitate-loop-2,
+body.gravity-inverted .levitate-loop-3,
+body.gravity-inverted .levitate-loop-4 {
+  animation-direction: reverse;
+  filter: hue-rotate(45deg);
+}
+
+body.gravity-inverted .orbital-ring {
+  border-color: var(--plasma-purple) !important;
+}
+
+body.gravity-inverted .gyro-logo {
+  transform: rotate(180deg);
+}
+
+/* Mouse Pulse / Scatter Physics Flash */
+.shockwave-active {
+  animation: pulse-bloom 0.6s cubic-bezier(0.1, 0.8, 0.3, 1);
+}
+
+@keyframes pulse-bloom {
+  0% {
+    box-shadow: 0 0 50px rgba(0, 240, 255, 0.8), inset 0 0 20px rgba(0, 240, 255, 0.5);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+/* Reduced Motion Mode (Accessibility & Low Power) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .levitate-loop-1,
+  .levitate-loop-2,
+  .levitate-loop-3,
+  .levitate-loop-4,
+  .levitate-loop-slow,
+  .ring-1, .ring-2, .ring-3 {
+    animation: none !important;
+  }
+}
+
+body.zero-g-disabled .levitate-loop-1,
+body.zero-g-disabled .levitate-loop-2,
+body.zero-g-disabled .levitate-loop-3,
+body.zero-g-disabled .levitate-loop-4,
+body.zero-g-disabled .levitate-loop-slow,
+body.zero-g-disabled .ring-1,
+body.zero-g-disabled .ring-2,
+body.zero-g-disabled .ring-3 {
+  animation: none !important;
+  transform: translate3d(0, 0, 0) !important;
+}

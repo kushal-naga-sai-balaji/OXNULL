@@ -1,0 +1,152 @@
+/* ==========================================================================
+   OXNULL RESPONSIVE LAYOUTS & MOBILE ADAPTATION
+   ========================================================================== */
+
+/* Large Tablets & Small Laptops */
+@media (max-width: 1080px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center;
+  }
+
+  .telemetry-hud-panel {
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .hero-visual-wrapper {
+    max-width: 420px;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* Tablets */
+@media (max-width: 820px) {
+  .navbar-hud {
+    height: auto;
+    padding: 0.8rem 0;
+  }
+
+  .nav-links {
+    display: none; /* Can be toggled or handled via compact navigation */
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+
+  .tracks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bash-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hud-drawer {
+    padding: 1.8rem;
+    max-height: 92vh;
+  }
+
+  .drawer-curriculum-list {
+    grid-template-columns: 1fr;
+  }
+
+  .pass-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mission-countdown-hud {
+    flex-direction: column;
+    gap: 1.2rem;
+    text-align: center;
+  }
+}
+
+/* Mobile Devices */
+@media (max-width: 540px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  .hero-title {
+    font-size: 2.2rem;
+  }
+
+  .hero-tagline {
+    font-size: 0.95rem;
+  }
+
+  .telemetry-hud-panel {
+    grid-template-columns: 1fr;
+    padding: 1.2rem;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn-cyber-primary,
+  .hero-cta-group .btn-cyber-outline,
+  .hero-cta-group .btn-cyber-ghost {
+    width: 100%;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .track-card {
+    padding: 1.4rem;
+    min-height: auto;
+  }
+
+  .terminal-body {
+    padding: 1.2rem;
+  }
+
+  .countdown-digits {
+    gap: 0.7rem;
+  }
+
+  .digit-num {
+    font-size: 1.45rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .footer-bottom-bar {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+}
