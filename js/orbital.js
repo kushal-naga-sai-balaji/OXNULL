@@ -34,7 +34,7 @@ const TRACK_DATA = {
       { title: "Introductory CTF War Games", desc: "OverTheWire Bandit walkthroughs, PicoCTF jeopardy mastery, and web request manipulation." },
       { title: "Security Tooling Arsenal", desc: "Nmap port reconnaissance, Netcat listener payloads, Wireshark packet capture, and curl headers." }
     ],
-    tools: ["Linux / Kali", "Wireshark", "Nmap", "Scapy", "Netcat", "Burp Community", "GDB Basics"],
+    tools: ["Communication", "Public speaking", "Presentation", "Leadership", "Team work", "Event management", "Discover interests"],
     lead: "Operative CIPHER_0 // Cadet Squadron Commander",
     labType: "explore"
   },
